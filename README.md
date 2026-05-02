@@ -5,17 +5,17 @@
 ---
 
 ## 📝 Descrição
-O programa realiza requisições HTTP para a API do **OpenWeatherMap**, processando dados em formato JSON. Ele analisa a descrição do tempo e, caso a previsão indique "chuva", utiliza a API do **Twilio** para disparar um SMS automático para o seu celular. Se o dia estiver limpo, ele apenas te deseja um bom dia!
+O programa realiza requisições HTTP para a API do **OpenWeatherMap**, processando dados em formato JSON. Ele analisa a descrição do tempo e, caso a previsão indique "chuva", utiliza a API do **Telegram** para disparar um SMS automático para o seu celular. Se o dia estiver limpo, ele apenas te deseja um bom dia!
 
-![SMS Recebido](imagens/sms.jpg)
-![Previsão do Tempo](imagens/Screenshot.png)
+![SMS Recebido](img/Screenshot%202026-05-02%20150947.png)
+![Previsão do Tempo](img/Screenshot%202026-05-02%20151225.png)
 
 ## 🚀 Funcionalidades
 - **Consulta Automatizada:** Obtém dados climáticos precisos via linha de comando.
 - **Exibição no Terminal:** Interface limpa mostrando as condições para hoje e os próximos dias.
 - **Análise Lógica Dinâmica:** Identifica palavras-chave (chuva, sol, nuvens) para personalizar a resposta.
-- **Notificação via SMS:** Integração direta com gateway de mensagens para alertas urgentes.
-- **Segurança (DotEnv Style):** Uso de um arquivo de credenciais separado para proteger suas chaves de API.
+- **Integração direta com bot do Telegram:** (substituindo a antiga integração via Twilio)..
+- **Execução manual via terminal local.** 
 
 ## 🛠️ Tecnologias Utilizadas
 
@@ -23,29 +23,27 @@ O programa realiza requisições HTTP para a API do **OpenWeatherMap**, processa
 | :--- | :--- |
 | **Python 3** | Linguagem principal do projeto. |
 | **OpenWeatherMap API** | Fonte de dados meteorológicos globais. |
-| **Twilio API** | Serviço de mensageria para envio de SMS. |
+| **Interface: Telegram Bot API** | (via biblioteca python-telegram-bot ou similar) |
+| **Versionamento:**| Git & GitHub  |
 | **Requests** | Biblioteca para consumo de APIs (HTTP). |
 | **JSON/Sys** | Módulos nativos para tratamento de dados e argumentos de sistema. |
 
 ## ⚙️ Como Executar
 
 ### 1. Instale as dependências
-Abra o seu terminal e instale as bibliotecas necessárias:
-```bash
-pip install requests twilio
+Certifique-se de ter o Python instalado e uma chave de API (Token) gerada pelo @BotFather no Telegram.
 
 ###  Configure as suas credenciais:
 
-Para garantir a segurança do seu código
-, crie um arquivo chamado credenciais.py na mesma pasta do seu script principal (quickWeather.py) e insira as suas chaves de acesso. O arquivo deve ter a seguinte estrutura:
+Para proteger credenciais sensíveis (como o Telegram Token e a Weather API Key), este projeto utiliza variáveis de ambiente via arquivo .env. Isso evita a exposição de chaves privadas em repositórios públicos como o GitHub.
 
-# credenciais.py
+Local : As chaves são armazenadas em um arquivo .env na raiz do projeto, que é ignorado pelo Git através do .gitignore.
 
-chave_api_clima = "SUA_CHAVE_DO_OPENWEATHERMAP"
-accountSID = "SEU_ACCOUNT_SID_DO_TWILIO"
-authToken = "SEU_AUTH_TOKEN_DO_TWILIO"
-meuNumeroTwilio = "+1234567890" # O número virtual gerado pelo Twilio
-meuCelular = "+5511999999999" # O seu número pessoal (cadastrado e verificado no Twilio
+Loading: A biblioteca python-dotenv carrega essas variáveis para o ambiente de execução do Python.
+
+Access: O código utiliza o módulo os para ler os valores sem nunca exibi-los diretamente no código-fonte.
+
+
 
 ###  Execute o programa: 
 
@@ -57,4 +55,12 @@ Aguarde alguns segundos e o alerta com a previsão chegará diretamente no seu c
 TODOS RECURSO SÃO GRATUITOS.
 
 link  https://openweathermap.org/
-link https://www.twilio.com/
+
+
+| **📅 Roadmap de Desenvolvimento**|
+
+[x] Migração de Twilio para Telegram API.
+
+[ ] Implementação de Webhooks/Polling avançado.
+
+[ ] Deploy e hospedagem 24/7 no Google Cloud Platform (Compute Engine).
